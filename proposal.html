@@ -25,9 +25,6 @@
         @keyframes twinkle { 0%, 100% { opacity: .2; } 50% { opacity: 1; } }
         @keyframes drift { from { transform: translateY(0); } to { transform: translateY(-120px); } }
 
-        .particle { position: absolute; width: 3px; height: 3px; background: #60a5fa; border-radius: 50%; box-shadow: 0 0 15px #60a5fa; animation: floatUp linear infinite; }
-        @keyframes floatUp { from { transform: translateY(100vh); opacity: 0; } 20% { opacity: 1; } to { transform: translateY(-120vh); opacity: 0; } }
-
         /* Main Card */
         .card {
             position: relative; z-index: 10; width: 92%; max-width: 850px; padding: 30px 20px;
@@ -48,7 +45,7 @@
         .think { background: white; color: #0f172a; }
         .think:hover { transform: translateY(-3px) scale(1.05); }
 
-        /* Transition Elements */
+        /* Cinematic Elements */
         #replyBtn { display: none; padding: 15px 35px; border-radius: 50px; background: #25D366; color: white; font-size: 18px; cursor: pointer; transition: .3s; border: none; margin-top: 20px; }
         #replyBtn:hover { transform: scale(1.05); box-shadow: 0 0 20px #25D366; }
 
@@ -57,9 +54,6 @@
 
         .rose { position: fixed; top: -50px; pointer-events: none; z-index: 9997; animation: roseFall 10s linear forwards; }
         @keyframes roseFall { 0% { transform: translateY(-50px) rotate(0deg); } 100% { transform: translateY(120vh) rotate(720deg); } }
-
-        .sparkle { position: fixed; pointer-events: none; z-index: 9999; animation: sparkleAnim 2s forwards; }
-        @keyframes sparkleAnim { 0% { opacity: 0; transform: scale(0); } 50% { opacity: 1; transform: scale(2); } 100% { opacity: 0; transform: scale(0); } }
 
         #bigHeart { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); font-size: 180px; opacity: 0; z-index: 9996; transition: 3s; filter: drop-shadow(0 0 40px red); }
         #finalMessage { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; text-align: center; z-index: 9999; transition: 4s; }
@@ -92,43 +86,60 @@
 <div id="bigHeart">❤️</div>
 
 <script>
-    // Create Background Stars/Particles
-    for(let i=0;i<180;i++){
-        let star=document.createElement("div"); star.className="star";
-        star.style.left=Math.random()*100+"vw"; star.style.top=Math.random()*100+"vh";
-        star.style.animationDelay=Math.random()*5+"s"; document.body.appendChild(star);
+    // Create Background Stars
+    for(let i=0; i<150; i++){
+        let star = document.createElement("div"); 
+        star.className = "star";
+        star.style.left = Math.random() * 100 + "vw"; 
+        star.style.top = Math.random() * 100 + "vh";
+        star.style.animationDelay = Math.random() * 5 + "s"; 
+        document.body.appendChild(star);
     }
 
     function yesAnswer(){
-        try { document.getElementById("music").play(); } catch(e){}
-        document.getElementById("mainCard").style.opacity="0";
-        document.body.style.background="#000";
+        // Try playing music
+        let audio = document.getElementById("music");
+        audio.play().catch(e => console.log("User interaction required for audio."));
 
-        // Animations
-        for(let i=0;i<500;i++){ setTimeout(()=>{
-            let heart=document.createElement("div"); heart.innerHTML="❤️"; heart.className="risingHeart";
-            heart.style.left=Math.random()*100+"vw"; heart.style.fontSize=(15+Math.random()*40)+"px";
-            document.body.appendChild(heart);
-        },i*4); }
+        document.getElementById("mainCard").style.opacity = "0";
+        document.body.style.background = "#000";
 
-        for(let i=0;i<80;i++){ setTimeout(()=>{
-            let flower=document.createElement("div"); flower.innerHTML="🌹"; flower.className="rose";
-            flower.style.left=Math.random()*100+"vw"; document.body.appendChild(flower);
-        },i*30); }
+        // Hearts Animation
+        for(let i=0; i<60; i++){
+            setTimeout(() => {
+                let heart = document.createElement("div"); 
+                heart.innerHTML = "❤️"; 
+                heart.className = "risingHeart";
+                heart.style.left = Math.random() * 100 + "vw"; 
+                heart.style.fontSize = (20 + Math.random() * 30) + "px";
+                document.body.appendChild(heart);
+            }, i * 100);
+        }
 
-        setTimeout(()=>{ 
-            document.getElementById("bigHeart").style.opacity="1";
-            document.getElementById("bigHeart").style.transform="translate(-50%,-50%) scale(1)";
-        },2500);
+        // Roses Animation
+        for(let i=0; i<20; i++){
+            setTimeout(() => {
+                let flower = document.createElement("div"); 
+                flower.innerHTML = "🌹"; 
+                flower.className = "rose";
+                flower.style.left = Math.random() * 100 + "vw"; 
+                document.body.appendChild(flower);
+            }, i * 300);
+        }
 
-        setTimeout(()=>{ 
-            document.getElementById("finalMessage").style.opacity="1";
-            document.getElementById("replyBtn").style.display="inline-block";
-        },4000);
+        setTimeout(() => { 
+            document.getElementById("bigHeart").style.opacity = "1";
+            document.getElementById("bigHeart").style.transform = "translate(-50%,-50%) scale(1)";
+        }, 2500);
+
+        setTimeout(() => { 
+            document.getElementById("finalMessage").style.opacity = "1";
+            document.getElementById("replyBtn").style.display = "inline-block";
+        }, 4000);
     }
 
     function thinkAnswer(){
-        document.getElementById("result").innerHTML="That's completely okay 😊 Take all the time you need.";
+        document.getElementById("result").innerHTML = "That's completely okay 😊 Take all the time you need.";
     }
 
     function sendWhatsApp(){
