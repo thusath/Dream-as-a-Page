@@ -13,8 +13,9 @@
         }
 
         body {
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto; /* allow scrolling on small screens */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,11 +24,11 @@
             color: white;
         }
 
-        /* Stars */
+        /* Stars - Optimized */
         .star {
             position: absolute;
-            width: 2px;
-            height: 2px;
+            width: 1px;
+            height: 1px;
             background: white;
             border-radius: 50%;
             animation: twinkle 4s infinite, drift 30s linear infinite;
@@ -43,11 +44,11 @@
             to { transform: translateY(-120px); }
         }
 
-        /* Particles */
+        /* Particles - Optimized */
         .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 3px;
+            height: 3px;
             background: #60a5fa;
             border-radius: 50%;
             box-shadow: 0 0 15px #60a5fa;
@@ -60,18 +61,18 @@
             to { transform: translateY(-120vh); opacity: 0; }
         }
 
-        /* Main Card */
+        /* Main Card - Mobile Optimized */
         .card {
             position: relative;
             z-index: 10;
-            width: 90%;
+            width: 92%;
             max-width: 850px;
-            padding: 60px;
+            padding: 25px 18px;
             text-align: center;
             background: rgba(255, 255, 255, .05);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, .1);
-            border-radius: 30px;
+            border-radius: 20px;
             animation: fadeIn 2s ease;
         }
 
@@ -80,11 +81,30 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        h1 { font-size: 3rem; margin-bottom: 25px; }
-        p { font-size: 1.3rem; line-height: 2; margin-bottom: 15px; color: #e2e8f0; }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #e2e8f0;
+        }
 
         .buttons { margin-top: 30px; }
-        button { padding: 16px 40px; border: none; border-radius: 50px; font-size: 18px; cursor: pointer; margin: 10px; transition: .4s; }
+        
+        button {
+            padding: 12px 22px;
+            font-size: 16px;
+            border-radius: 40px;
+            margin: 8px;
+            border: none;
+            cursor: pointer;
+            transition: .4s;
+        }
+        
         .yes { background: #ef4444; color: white; }
         .yes:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 25px #ef4444, 0 0 50px #ef4444; }
         .think { background: white; color: #0f172a; }
@@ -92,7 +112,7 @@
 
         /* Reply Button Style */
         #replyBtn {
-            display: none; /* Hidden initially as requested */
+            display: none;
             padding: 15px 35px;
             border: none;
             border-radius: 50px;
@@ -150,9 +170,35 @@
             z-index: 9999;
             transition: 4s;
             color: white;
-            text-shadow:
-                0 0 20px rgba(255,255,255,0.8),
-                0 0 40px rgba(255,0,0,0.6);
+            text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(255,0,0,0.6);
+        }
+
+        /* FULL Mobile Optimization */
+        @media (max-width: 600px) {
+            .card {
+                padding: 18px 14px;
+                border-radius: 16px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            p {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+            button {
+                width: 100%;
+                max-width: 260px;
+                font-size: 15px;
+            }
+            .buttons {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            #bigHeart {
+                font-size: 120px;
+            }
         }
     </style>
 </head>
@@ -213,14 +259,10 @@
     function yesAnswer(){
         try{ document.getElementById("music").play(); } catch(e){}
 
-        /* Hide proposal card */
         document.getElementById("mainCard").style.opacity="0";
-
-        /* Fade to black */
         document.body.style.transition="3s";
         document.body.style.background="#000";
 
-        /* Hearts Rising */
         for(let i=0;i<500;i++){
             setTimeout(()=>{
                 let heart=document.createElement("div");
@@ -232,7 +274,6 @@
             },i*4);
         }
 
-        /* Rose Petals */
         for(let i=0;i<80;i++){
             setTimeout(()=>{
                 let flower=document.createElement("div");
@@ -244,7 +285,6 @@
             },i*30);
         }
 
-        /* Sparkles */
         for(let i=0;i<120;i++){
             setTimeout(()=>{
                 let sparkle=document.createElement("div");
@@ -256,35 +296,29 @@
             },i*15);
         }
 
-        /* Big Heart */
         setTimeout(()=>{
             document.getElementById("bigHeart").style.opacity="1";
             document.getElementById("bigHeart").style.transform="translate(-50%,-50%) scale(1)";
         },2500);
 
-        /* Remove the Giant Heart After a Few Seconds */
         setTimeout(()=>{
             document.getElementById("bigHeart").style.opacity="0";
             document.getElementById("bigHeart").style.transform="translate(-50%,-50%) scale(1.5)";
         },6000);
 
-        /* Show final message */
         setTimeout(()=>{
             document.getElementById("finalMessage").style.opacity="1";
         },4000);
 
-        /* Show WhatsApp Button */
         setTimeout(()=>{
             document.getElementById("replyBtn").style.display="inline-block";
         },6000);
     }
 
-    /* THINK BUTTON */
     function thinkAnswer(){
         document.getElementById("result").innerHTML="That's completely okay 😊 Take all the time you need.";
     }
 
-    /* WhatsApp Function */
     function sendWhatsApp(){
         window.open(
             "https://wa.me/94775916435?text=Hi%20Thusath%20❤️%20My%20answer%20is%20YES!",
