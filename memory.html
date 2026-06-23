@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -114,10 +113,10 @@ body{
     position:relative;
     z-index:10;
 
-    width:90%;
-    max-width:850px;
+    width:92%;
+    max-width:700px;
 
-    padding:60px;
+    padding:35px 25px;
 
     background:rgba(255,255,255,0.05);
 
@@ -147,20 +146,20 @@ body{
 
 h1{
 
-    margin-bottom:35px;
+    margin-bottom:20px;
 
-    font-size:2.7rem;
+    font-size:2rem;
 
     letter-spacing:1px;
 }
 
 #text{
 
-    font-size:1.4rem;
+    font-size:1.1rem;
 
-    line-height:2;
+    line-height:1.8;
 
-    min-height:280px;
+    min-height:200px;
 
     color:#e2e8f0;
 }
@@ -240,6 +239,27 @@ button:hover{
     }
 }
 
+@media (max-width: 600px){
+
+    h1{
+        font-size:1.8rem;
+    }
+
+    #text{
+        font-size:1rem;
+        min-height:180px;
+    }
+
+    button{
+        width:100%;
+        font-size:16px;
+    }
+
+    .card{
+        padding:30px 20px;
+    }
+}
+
 </style>
 
 </head>
@@ -248,15 +268,13 @@ button:hover{
 
 <div class="card" id="card">
 
-```
-<h1>✨ Just One More Thing...</h1>
+    <h1>✨ Just One More Thing...</h1>
 
-<div id="text" class="cursor"></div>
+    <div id="text" class="cursor"></div>
 
-<button id="continueBtn" onclick="goNext()">
-    Continue ✨
-</button>
-```
+    <button id="continueBtn" onclick="goNext()">
+        Continue ✨
+    </button>
 
 </div>
 
