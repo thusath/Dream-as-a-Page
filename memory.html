@@ -1,1 +1,400 @@
+<!DOCTYPE html>
 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Something I Wanted To Tell You ✨</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    height:100vh;
+    overflow:hidden;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-family:'Segoe UI',sans-serif;
+
+    background:
+    radial-gradient(circle at top,
+    #1e3a8a 0%,
+    #0f172a 40%,
+    #020617 100%);
+
+    color:white;
+}
+
+/* Moving stars */
+
+.star{
+
+    position:absolute;
+    width:2px;
+    height:2px;
+
+    background:white;
+    border-radius:50%;
+
+    animation:
+    twinkle 4s infinite,
+    drift 25s linear infinite;
+}
+
+@keyframes twinkle{
+
+    0%,100%{
+        opacity:0.2;
+    }
+
+    50%{
+        opacity:1;
+    }
+}
+
+@keyframes drift{
+
+    from{
+        transform:translateY(0px);
+    }
+
+    to{
+        transform:translateY(-120px);
+    }
+}
+
+/* Floating glow particles */
+
+.particle{
+
+    position:absolute;
+
+    width:4px;
+    height:4px;
+
+    background:#60a5fa;
+
+    border-radius:50%;
+
+    box-shadow:0 0 15px #60a5fa;
+
+    animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+
+    from{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    to{
+        transform:translateY(-120vh);
+        opacity:0;
+    }
+}
+
+/* Glass card */
+
+.card{
+
+    position:relative;
+    z-index:10;
+
+    width:90%;
+    max-width:850px;
+
+    padding:60px;
+
+    background:rgba(255,255,255,0.05);
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    border-radius:30px;
+
+    text-align:center;
+
+    animation:fadeIn 2s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h1{
+
+    margin-bottom:35px;
+
+    font-size:2.7rem;
+
+    letter-spacing:1px;
+}
+
+#text{
+
+    font-size:1.4rem;
+
+    line-height:2;
+
+    min-height:280px;
+
+    color:#e2e8f0;
+}
+
+/* Continue button */
+
+button{
+
+    opacity:0;
+
+    margin-top:20px;
+
+    padding:16px 40px;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:0.4s;
+}
+
+button:hover{
+
+    transform:translateY(-3px) scale(1.05);
+
+    box-shadow:
+    0 0 20px #3b82f6,
+    0 0 40px #2563eb;
+}
+
+.showButton{
+
+    animation:showButton 1.5s forwards;
+}
+
+@keyframes showButton{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+}
+
+.fadeOut{
+
+    animation:fadeOutPage 1.5s forwards;
+}
+
+@keyframes fadeOutPage{
+
+    to{
+        opacity:0;
+        transform:scale(1.08);
+    }
+}
+
+.cursor{
+    border-right:3px solid white;
+    animation:blink .8s infinite;
+}
+
+@keyframes blink{
+
+    50%{
+        border-color:transparent;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card" id="card">
+
+```
+<h1>✨ Just One More Thing...</h1>
+
+<div id="text" class="cursor"></div>
+
+<button id="continueBtn" onclick="goNext()">
+    Continue ✨
+</button>
+```
+
+</div>
+
+<script>
+
+/* Stars */
+
+for(let i=0;i<180;i++){
+
+    let star=document.createElement("div");
+
+    star.classList.add("star");
+
+    star.style.left=Math.random()*100+"vw";
+    star.style.top=Math.random()*100+"vh";
+
+    star.style.animationDelay=Math.random()*5+"s";
+
+    document.body.appendChild(star);
+}
+
+/* Particles */
+
+for(let i=0;i<35;i++){
+
+    let particle=document.createElement("div");
+
+    particle.classList.add("particle");
+
+    particle.style.left=Math.random()*100+"vw";
+
+    particle.style.animationDuration=
+    (12+Math.random()*10)+"s";
+
+    particle.style.animationDelay=
+    Math.random()*10+"s";
+
+    document.body.appendChild(particle);
+}
+
+/* Messages */
+
+const lines = [
+
+"There's something I've wanted to tell you...",
+
+"For a while now.",
+
+"Every conversation with you feels different.",
+
+"Every smile feels special.",
+
+"And before you leave...",
+
+"There's one last thing I want to ask."
+];
+
+let lineIndex = 0;
+
+function typeLine(text, callback){
+
+    let i = 0;
+
+    const target =
+    document.getElementById("text");
+
+    let paragraph =
+    document.createElement("div");
+
+    target.appendChild(paragraph);
+
+    let interval = setInterval(()=>{
+
+        paragraph.innerHTML += text.charAt(i);
+
+        i++;
+
+        if(i >= text.length){
+
+            clearInterval(interval);
+
+            setTimeout(callback,1200);
+        }
+
+    },45);
+}
+
+function showNextLine(){
+
+    if(lineIndex < lines.length){
+
+        typeLine(lines[lineIndex],()=>{
+
+            let spacer =
+            document.createElement("div");
+
+            spacer.style.height="20px";
+
+            document
+            .getElementById("text")
+            .appendChild(spacer);
+
+            lineIndex++;
+
+            showNextLine();
+        });
+    }
+
+    else{
+
+        document
+        .getElementById("continueBtn")
+        .classList.add("showButton");
+
+        document
+        .getElementById("text")
+        .classList.remove("cursor");
+    }
+}
+
+showNextLine();
+
+/* Go to proposal page */
+
+function goNext(){
+
+    document
+    .getElementById("card")
+    .classList.add("fadeOut");
+
+    setTimeout(()=>{
+
+        window.location.href="index.html";
+
+    },1200);
+}
+
+</script>
+
+</body>
+</html>
