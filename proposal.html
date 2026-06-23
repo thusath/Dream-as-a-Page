@@ -133,6 +133,9 @@
             z-index: 9999;
             transition: 4s;
             color: white;
+            text-shadow:
+                0 0 20px rgba(255,255,255,0.8),
+                0 0 40px rgba(255,0,0,0.6);
         }
     </style>
 </head>
@@ -193,7 +196,7 @@
         document.body.style.background="#000";
 
         /* Hearts Rising */
-        for(let i=0;i<2500;i++){
+        for(let i=0;i<500;i++){
             setTimeout(()=>{
                 let heart=document.createElement("div");
                 heart.innerHTML="❤️";
@@ -205,7 +208,7 @@
         }
 
         /* Rose Petals */
-        for(let i=0;i<400;i++){
+        for(let i=0;i<80;i++){
             setTimeout(()=>{
                 let flower=document.createElement("div");
                 flower.innerHTML="🌹";
@@ -217,7 +220,7 @@
         }
 
         /* Sparkles */
-        for(let i=0;i<500;i++){
+        for(let i=0;i<120;i++){
             setTimeout(()=>{
                 let sparkle=document.createElement("div");
                 sparkle.innerHTML="✨";
@@ -233,6 +236,12 @@
             document.getElementById("bigHeart").style.opacity="1";
             document.getElementById("bigHeart").style.transform="translate(-50%,-50%) scale(1)";
         },2500);
+
+        /* Remove the Giant Heart After a Few Seconds */
+        setTimeout(()=>{
+            document.getElementById("bigHeart").style.opacity="0";
+            document.getElementById("bigHeart").style.transform="translate(-50%,-50%) scale(1.5)";
+        },6000);
 
         /* Show final message */
         setTimeout(()=>{
